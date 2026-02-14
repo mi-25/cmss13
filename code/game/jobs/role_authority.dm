@@ -404,7 +404,7 @@ I hope it's easier to tell what the heck this proc is even doing, unlike previou
 	if(GLOB.job_squad_roles.Find(job.title))
 		var/list/squad_list = list()
 		for(squad in GLOB.RoleAuthority.squads)
-			if(squad.roundstart && squad.usable && squad.name != "根")
+			if(squad.roundstart && squad.usable && squad.name != "Root")
 				squad_list += squad
 		squad = null
 		squad = tgui_input_list(user, "选择你想从中释放 [job.title] 职位的班。", "Squad Selection", squad_list)
@@ -558,7 +558,7 @@ I hope it's easier to tell what the heck this proc is even doing, unlike previou
 	//we make a list of squad that is randomized so alpha isn't always lowest squad.
 	var/list/mixed_squads = list()
 	for(var/datum/squad/squad in squads)
-		if(squad.roundstart && squad.usable && squad.faction == human.faction && squad.name != "根")
+		if(squad.roundstart && squad.usable && squad.faction == human.faction && squad.name != "Root")
 			mixed_squads += squad
 
 	var/preferred_squad = human.client?.prefs?.preferred_squad

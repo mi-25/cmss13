@@ -251452,7 +251452,7 @@
       "original": "Root",
       "context": "118: \n119: /datum/squad/marine\n120: \tname = \"Root\"\n121: \tusable = TRUE\n122: \tactive = TRUE",
       "variables": [],
-      "translation": "根"
+      "translation": "Root"
     },
     {
       "id": "c00191e0fa9c",

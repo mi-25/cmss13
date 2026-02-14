@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 
 	var/SL_z //z level of the Squad Leader
 
-	if(index_squad && index_squad.name == "根")
+	if(index_squad && index_squad.name == "Root")
 		var/list/command_data = get_command_squad(data)
 		return command_data
 
@@ -477,7 +477,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 	if(!current_squad)
 		data["squad_list"] = list()
 		for(var/datum/squad/current_squad in GLOB.RoleAuthority.squads)
-			if(current_squad.active && !current_squad.overwatch_officer && current_squad.faction == faction && current_squad.name != "根")
+			if(current_squad.active && !current_squad.overwatch_officer && current_squad.faction == faction && current_squad.name != "Root")
 				data["squad_list"] += current_squad.name
 		return data
 
@@ -523,14 +523,14 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 	if(!current_squad)
 		data["squad_list"] = list()
 		for(var/datum/squad/current_squad in GLOB.RoleAuthority.squads)
-			if(current_squad.active && !current_squad.overwatch_officer && current_squad.faction == faction && current_squad.name != "根")
+			if(current_squad.active && !current_squad.overwatch_officer && current_squad.faction == faction && current_squad.name != "Root")
 				data["squad_list"] += current_squad.name
 		return data
 
 	data["current_squad"] = current_squad.name
 
 	for(var/datum/squad/index_squad in GLOB.RoleAuthority.squads)
-		if(index_squad.active && index_squad.faction == faction && index_squad.name != "根")
+		if(index_squad.active && index_squad.faction == faction && index_squad.name != "Root")
 			var/list/squad_data = list(list("name" = index_squad.name, "primary_objective" = index_squad.primary_objective, "secondary_objective" = index_squad.secondary_objective, "overwatch_officer" = index_squad.overwatch_officer, "ref" = REF(index_squad)))
 			data["squad_data"] += squad_data
 
@@ -607,7 +607,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 			if(selected_squad.assume_overwatch(user))
 				current_squad = selected_squad
 				operator = user
-				if(current_squad.name == "根")
+				if(current_squad.name == "Root")
 					visible_message("[icon2html(src, viewers(src))] [SPAN_BOLDNOTICE("Welcome [operator.name], access credentials verified. All tactical functions initialized.")]")
 				else
 					current_squad.send_squad_message("Attention - Your squad has been selected for Overwatch. Check your Status pane for objectives.", displayed_icon = src)
@@ -618,7 +618,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 		if("logout")
 			if(istype(src, /obj/structure/machinery/computer/overwatch/groundside_operations))
 				for(var/datum/squad/resolve_root in GLOB.RoleAuthority.squads)
-					if(resolve_root.name == "根" && resolve_root.faction == faction)
+					if(resolve_root.name == "Root" && resolve_root.faction == faction)
 						current_squad = resolve_root	// manually overrides the target squad to 'root', since goc's don't know how
 						break
 			if(current_squad?.release_overwatch())
@@ -827,7 +827,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 					return
 				if(istype(src, /obj/structure/machinery/computer/overwatch/groundside_operations))
 					for(var/datum/squad/resolve_root in GLOB.RoleAuthority.squads)
-						if(resolve_root.name == "根" && resolve_root.faction == faction)
+						if(resolve_root.name == "Root" && resolve_root.faction == faction)
 							current_squad = resolve_root	// manually overrides the target squad to 'root', since goc's don't know how
 							break
 				if(!current_squad || current_squad.assume_overwatch(user))
@@ -872,7 +872,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 				return
 			if(squad == "root" && show_command_squad)
 				for(var/datum/squad/resolve_root in GLOB.RoleAuthority.squads)
-					if(resolve_root.name == "根" && resolve_root.faction == faction)
+					if(resolve_root.name == "Root" && resolve_root.faction == faction)
 						current_squad = resolve_root	// manually overrides the target squad to 'root', since goc's don't know how
 			else
 				current_squad = locate(params["squad"])
@@ -1102,7 +1102,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 		current_squad.send_message("Attention: A new Squad Leader has been set: [selected_sl.real_name].")
 		visible_message("[icon2html(src, viewers(src))] [SPAN_BOLDNOTICE("[selected_sl.real_name] is the new Squad Leader of squad '[current_squad]'! Logging to enlistment file.")]")
 
-	to_chat(selected_sl, "[icon2html(src, selected_sl)] <font size='3' color='blue'><B>监控：你已被晋升为\'[selected_sl.job == JOB_SQUAD_LEADER ? ""SQUAD LEADER" : "ACTING SQUAD LEADER"]\' for [current_squad.name]. Your headset has access to the command channel ([command_channel_key]).</B></font>")
+	to_chat(selected_sl, "[icon2html(src, selected_sl)] <font size='3' color='blue'><B>监控：你已被晋升为'[selected_sl.job == JOB_SQUAD_LEADER ? "SQUAD LEADER" : "ACTING SQUAD LEADER"]' for [current_squad.name]. Your headset has access to the command channel ([command_channel_key]).</B></font>")
 	to_chat(user, "[icon2html(src, usr)] [selected_sl.real_name]现在是[current_squad]的新任班长！")
 
 	if(selected_sl.assigned_fireteam)
@@ -1307,7 +1307,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_overwatch_consoles, /obj/structure/machinery/comp
 
 	var/list/available_squads = list()
 	for(var/datum/squad/squad as anything in GLOB.RoleAuthority.squads)
-		if(squad.active && !squad.locked && squad.faction == faction && squad.name != "根")
+		if(squad.active && !squad.locked && squad.faction == faction && squad.name != "Root")
 			available_squads += squad
 
 	var/datum/squad/new_squad = tgui_input_list(usr, "选择陆战队员的新班组", "Squad Selection", available_squads)

@@ -117,7 +117,7 @@
 
 
 /datum/squad/marine
-	name = "根"
+	name = "Root"
 	usable = TRUE
 	active = TRUE
 	faction = FACTION_MARINE
@@ -262,7 +262,7 @@
 
 //############################### UPP Squads
 /datum/squad/upp
-	name = "根"
+	name = "Root"
 	usable = TRUE
 	omni_squad_vendor = TRUE
 	faction = FACTION_UPP
@@ -312,7 +312,7 @@
 
 //###############################
 /datum/squad/pmc
-	name = "根"
+	name = "Root"
 	squad_type = "小队"
 	faction = FACTION_PMC
 	usable = TRUE
@@ -334,7 +334,7 @@
 	faction = FACTION_WY_DEATHSQUAD
 //###############################
 /datum/squad/clf
-	name = "根"
+	name = "Root"
 	squad_type = "Cell"
 	faction = FACTION_CLF
 	usable = TRUE
